@@ -12,6 +12,18 @@
     /* ─── RESET ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ─── SKIP LINK ─────────────────────────────────── */
+    .skip-link {
+      position: absolute; top: -100%; left: 16px;
+      padding: 12px 20px;
+      background: var(--gold); color: var(--black);
+      font-family: var(--font-sans);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; text-decoration: none;
+      z-index: 9999; transition: top 0.2s;
+    }
+    .skip-link:focus { top: 16px; }
+
     /* ─── TOKENS ─────────────────────────────────────── */
     :root {
       --black:         #0A0705;
@@ -89,9 +101,10 @@
       color: var(--cream-dim); text-decoration: none;
       padding: 8px 14px; border-radius: 100px;
       transition: color 0.2s, background 0.2s;
-      white-space: nowrap;
+      white-space: nowrap; touch-action: manipulation;
     }
     .nav-links a:hover { color: var(--cream); background: rgba(240,232,220,0.07); }
+    .nav-links a.active:not(.nav-cta) { color: var(--cream); background: rgba(240,232,220,0.09); }
     .nav-cta {
       background: var(--gold) !important;
       color: var(--black) !important;
@@ -239,7 +252,8 @@
       font-family: var(--font-sans);
       font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
       text-transform: uppercase; text-decoration: none;
-      transition: background-position 0.4s var(--ease), transform 0.15s;
+      transition: background-position 0.28s var(--ease), transform 0.15s;
+      touch-action: manipulation;
     }
     .btn-primary:hover { background-position: bottom; }
     .btn-primary:active { transform: translateY(1px) scale(0.99); }
@@ -251,6 +265,7 @@
       font-size: 12px; font-weight: 400; letter-spacing: 0.1em;
       text-transform: uppercase; text-decoration: none;
       transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      touch-action: manipulation;
     }
     .btn-ghost:hover { border-color: var(--border-hover); color: var(--gold); }
     .btn-ghost:active { transform: translateY(1px); }
@@ -412,6 +427,7 @@
     .menu-item-price {
       color: var(--gold); font-weight: 600; font-size: 13px;
       flex-shrink: 0; margin-left: 16px;
+      font-variant-numeric: tabular-nums;
     }
     .menu-items-2col {
       display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px;
@@ -506,8 +522,13 @@
       font-size: 15px; color: var(--cream);
       line-height: 1.55; font-weight: 300;
     }
-    .location-value a { color: var(--cream); text-decoration: none; transition: color 0.2s; }
+    .location-value a {
+      color: var(--cream); text-decoration: none; transition: color 0.2s;
+      display: inline-flex; align-items: center; min-height: 44px;
+      touch-action: manipulation;
+    }
     .location-value a:hover { color: var(--gold); }
+    .location-value a:active { color: var(--gold-light); }
 
     /* ─── CTA ────────────────────────────────────────── */
     .cta-section {
@@ -553,6 +574,7 @@
       align-items: center;
     }
     .footer-phone:hover { color: var(--gold); }
+    .footer-phone:active { color: var(--gold-light); transform: scale(0.98); }
 
     /* ─── REVEAL ANIMATIONS ──────────────────────────── */
     .reveal {
@@ -617,6 +639,8 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
   <!-- Grain Overlay -->
   <div class="grain" aria-hidden="true"></div>
 
@@ -630,6 +654,8 @@
       <a href="#kontakt" class="nav-cta">Reservieren</a>
     </div>
   </nav>
+
+  <main id="main">
 
   <!-- HERO -->
   <section class="hero" aria-label="Willkommen bei Pizzeria Nobile">
@@ -963,6 +989,8 @@
     </div>
   </section>
 
+  </main><!-- /main -->
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
@@ -978,6 +1006,20 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
+
+    // Scrollspy
+    const spySections = document.querySelectorAll('section[id], [id="kontakt"]');
+    const spyLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    const spyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          spyLinks.forEach(l => {
+            l.classList.toggle('active', l.getAttribute('href') === `#${e.target.id}`);
+          });
+        }
+      });
+    }, { rootMargin: '-15% 0px -75% 0px' });
+    spySections.forEach(s => spyObserver.observe(s));
 
     // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
