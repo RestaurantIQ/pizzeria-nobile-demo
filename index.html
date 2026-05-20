@@ -540,6 +540,16 @@
     .location-value a:hover { color: var(--gold); }
     .location-value a:active { color: var(--gold-light); }
 
+    /* ─── MAP ────────────────────────────────────────── */
+    .map-section {
+      border-top: 1px solid var(--border);
+    }
+    .map-frame {
+      width: 100%; height: 480px;
+      display: block; border: none;
+      filter: grayscale(0.2) brightness(0.88);
+    }
+
     /* ─── CTA ────────────────────────────────────────── */
     .cta-section {
       padding: 120px 60px;
@@ -982,6 +992,18 @@
 
       </div>
     </div>
+  </section>
+
+  <!-- MAP -->
+  <section class="map-section" id="lage" aria-label="Lage">
+    <iframe
+      class="map-frame"
+      src="https://www.google.com/maps?q=Hauptstra%C3%9Fe+57,+68804+Altlu%C3%9Fheim&output=embed&z=15&hl=de"
+      loading="lazy"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Pizzeria Nobile auf Google Maps"
+    ></iframe>
   </section>
 
   <!-- CTA -->
