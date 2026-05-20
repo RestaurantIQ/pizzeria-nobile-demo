@@ -136,7 +136,7 @@
     .hero-right::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse 90% 70% at 50% 40%, rgba(200,150,60,0.04) 0%, transparent 65%);
+      background: radial-gradient(ellipse 90% 70% at 50% 40%, rgba(200,150,60,0.07) 0%, transparent 65%);
     }
     .hero-right-content {
       position: relative; z-index: 1;
@@ -146,7 +146,7 @@
       font-family: var(--font-serif);
       font-size: clamp(88px, 12vw, 176px);
       font-weight: 700; font-style: italic;
-      color: rgba(200,150,60,0.08);
+      color: rgba(200,150,60,0.14);
       letter-spacing: -0.05em; line-height: 1;
       user-select: none;
     }
@@ -226,13 +226,16 @@
     /* ─── BUTTONS ────────────────────────────────────── */
     .btn-primary {
       display: inline-block; padding: 14px 36px;
-      background: var(--gold); color: var(--black);
+      background: linear-gradient(to top, var(--gold-light) 50%, var(--gold) 50%);
+      background-size: 100% 200%;
+      background-position: top;
+      color: var(--black);
       font-family: var(--font-sans);
       font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
       text-transform: uppercase; text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
+      transition: background-position 0.4s var(--ease), transform 0.15s;
     }
-    .btn-primary:hover { background: var(--gold-light); }
+    .btn-primary:hover { background-position: bottom; }
     .btn-primary:active { transform: translateY(1px) scale(0.99); }
     .btn-ghost {
       display: inline-block; padding: 14px 36px;
@@ -246,21 +249,36 @@
     .btn-ghost:hover { border-color: var(--border-hover); color: var(--gold); }
     .btn-ghost:active { transform: translateY(1px); }
 
-    /* ─── INFO STRIP ─────────────────────────────────── */
-    .info-strip {
+    /* ─── MARQUEE STRIP ─────────────────────────────── */
+    .marquee-wrap {
+      overflow: hidden;
       background: var(--surface);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 18px 60px;
+      padding: 15px 0;
     }
-    .info-strip-inner {
-      max-width: 1080px; margin: 0 auto;
-      display: flex; flex-wrap: wrap; justify-content: center;
-      align-items: center; gap: 0 20px;
-      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee-scroll 34s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    .marquee-content {
+      display: flex;
+      align-items: center;
+      gap: 0 28px;
+      padding: 0 14px;
+      white-space: nowrap;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
       color: var(--cream-dim);
     }
-    .strip-dot { color: var(--gold); opacity: 0.45; }
+    .marquee-dot { color: var(--gold); opacity: 0.5; }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
 
     /* ─── SECTIONS ───────────────────────────────────── */
     .section { padding: 120px 60px; }
@@ -295,7 +313,7 @@
       font-family: var(--font-serif);
       font-size: clamp(100px, 15vw, 200px);
       font-weight: 700; line-height: 1;
-      color: rgba(200,150,60,0.055);
+      color: rgba(200,150,60,0.09);
       letter-spacing: -0.05em;
       position: absolute; top: -48px; left: -24px;
       pointer-events: none; user-select: none;
@@ -354,7 +372,7 @@
       padding: 48px 44px;
       transition: background 0.3s;
     }
-    .menu-block:hover { background: rgba(200,150,60,0.02); }
+    .menu-block:hover { background: rgba(200,150,60,0.04); }
     .menu-block-salate {
       grid-column: 2;
       grid-row: 1 / 3;
@@ -573,7 +591,6 @@
       .menu-block-salate { grid-column: 1; grid-row: auto; }
       .menu-items-2col   { grid-template-columns: 1fr; }
       .reviews-grid      { grid-template-columns: 1fr; }
-      .info-strip        { padding: 16px 40px; }
       .cta-section       { padding: 80px 40px; }
     }
     @media (max-width: 768px) {
@@ -581,7 +598,6 @@
       .nav-logo { font-size: 15px; padding: 13px 0; }
       .nav-links a:not(.nav-cta) { display: none; }
       .section { padding: 72px 24px; }
-      .info-strip { padding: 14px 24px; }
       .cta-section { padding: 72px 24px; }
       footer { padding: 28px 24px; }
       .footer-inner { flex-direction: column; text-align: center; gap: 12px; }
@@ -643,16 +659,27 @@
     </div>
   </section>
 
-  <!-- INFO STRIP -->
-  <div class="info-strip">
-    <div class="info-strip-inner">
-      <span>Seit 1988</span>
-      <span class="strip-dot" aria-hidden="true">·</span>
-      <span>Hauptstraße 57, Altlußheim</span>
-      <span class="strip-dot" aria-hidden="true">·</span>
-      <span>4,5 Sterne auf Google</span>
-      <span class="strip-dot" aria-hidden="true">·</span>
-      <span>Di – So geöffnet</span>
+  <!-- MARQUEE STRIP -->
+  <div class="marquee-wrap" aria-label="Dal 1988 · Altlußheim · Pizza und Pasta · 4,5 Sterne · Famiglia · Steinofen · Di–So geöffnet">
+    <div class="marquee-track">
+      <div class="marquee-content" aria-hidden="true">
+        <span>Dal 1988</span><span class="marquee-dot">·</span>
+        <span>Altlußheim</span><span class="marquee-dot">·</span>
+        <span>Pizza &amp; Pasta</span><span class="marquee-dot">·</span>
+        <span>4,5 Sterne</span><span class="marquee-dot">·</span>
+        <span>Famiglia</span><span class="marquee-dot">·</span>
+        <span>Steinofen</span><span class="marquee-dot">·</span>
+        <span>Di – So geöffnet</span><span class="marquee-dot">·</span>
+      </div>
+      <div class="marquee-content" aria-hidden="true">
+        <span>Dal 1988</span><span class="marquee-dot">·</span>
+        <span>Altlußheim</span><span class="marquee-dot">·</span>
+        <span>Pizza &amp; Pasta</span><span class="marquee-dot">·</span>
+        <span>4,5 Sterne</span><span class="marquee-dot">·</span>
+        <span>Famiglia</span><span class="marquee-dot">·</span>
+        <span>Steinofen</span><span class="marquee-dot">·</span>
+        <span>Di – So geöffnet</span><span class="marquee-dot">·</span>
+      </div>
     </div>
   </div>
 
@@ -686,7 +713,7 @@
           <span class="section-label">Was uns auszeichnet</span>
           <h2 class="section-headline">Tradition trifft<br>Leidenschaft.</h2>
           <p class="section-text">Wir kochen nicht für die Masse. Jedes Gericht wird mit denselben Zutaten zubereitet, die wir selbst auf den Tisch bringen würden. Kein Tiefkühl, kein Kompromiss.</p>
-          <p class="section-text">Ob knusprige Pizza aus dem Steinofen, hausgemachte Pasta oder klassische Schnitzel — bei uns schmeckt man, dass jemand mit Herzblut dabei ist.</p>
+          <p class="section-text">Ob knusprige Pizza aus dem Steinofen, hausgemachte Pasta oder klassische Schnitzel: bei uns schmeckt man, dass jemand mit Herzblut dabei ist.</p>
         </div>
 
       </div>
@@ -700,7 +727,7 @@
       <div class="menu-header reveal">
         <span class="section-label">Speisekarte</span>
         <h2 class="section-headline">Aus unserer Küche.</h2>
-        <p class="section-text">Jeden Tag frisch zubereitet. Unsere Speisekarte wechselt saisonal — sprechen Sie uns gerne auf Tagesempfehlungen an.</p>
+        <p class="section-text">Jeden Tag frisch zubereitet. Unsere Speisekarte wechselt saisonal. Sprechen Sie uns gerne auf Tagesempfehlungen an.</p>
       </div>
 
       <div class="menu-bento-shell">
@@ -886,7 +913,7 @@
               </div>
               <div>
                 <div class="location-label">Reservierung</div>
-                <div class="location-value">Rufen Sie uns an — wir freuen uns auf Sie.</div>
+                <div class="location-value">Rufen Sie uns an. Wir freuen uns auf Sie.</div>
               </div>
             </div>
 
