@@ -4,23 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pizzeria Nobile — Altlußheim</title>
-  <meta name="description" content="Authentische italienische Küche seit 1988 in Altlußheim. Pizza, Pasta und mehr — hausgemacht mit Leidenschaft." />
+  <meta name="description" content="Authentische italienische Küche seit 1988 in Altlußheim. Hausgemachte Pizza, Pasta und mehr. Telefon: 06205 32857." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
+    /* ─── RESET ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ─── TOKENS ─────────────────────────────────────── */
     :root {
-      --black:      #0A0705;
-      --surface:    #120E0B;
-      --gold:       #C8963C;
-      --gold-light: #E0B566;
-      --cream:      #F0E8DC;
-      --muted:      rgba(240,232,220,0.45);
-      --border:     rgba(200,150,60,0.12);
-      --font-serif: 'Playfair Display', Georgia, serif;
-      --font-sans:  'Outfit', system-ui, sans-serif;
+      --black:         #0A0705;
+      --black-deep:    #070504;
+      --surface:       #130F0C;
+      --surface-2:     #181210;
+      --gold:          #C8963C;
+      --gold-light:    #DBA84E;
+      --cream:         #F0E8DC;
+      --cream-dim:     rgba(240,232,220,0.52);
+      --cream-faint:   rgba(240,232,220,0.24);
+      --border:        rgba(200,150,60,0.13);
+      --border-hover:  rgba(200,150,60,0.30);
+      --font-serif:    'Playfair Display', Georgia, serif;
+      --font-sans:     'Outfit', system-ui, sans-serif;
+      --ease:          cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     html { scroll-behavior: smooth; }
@@ -31,119 +38,189 @@
       font-weight: 400;
       line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* NAV */
+    /* ─── GRAIN OVERLAY (Editorial Luxury) ──────────── */
+    .grain {
+      position: fixed; inset: 0; z-index: 999;
+      pointer-events: none; user-select: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* ─── NAV — Floating Pill ────────────────────────── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 28px 60px;
-      transition: background 0.4s, padding 0.3s;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      width: max-content;
+      max-width: calc(100% - 32px);
+      background: rgba(10,7,5,0.70);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0 6px 0 22px;
+      transition: background 0.4s var(--ease), border-color 0.4s, box-shadow 0.4s;
     }
     nav.scrolled {
       background: rgba(10,7,5,0.94);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      padding: 18px 60px;
-      border-bottom: 1px solid var(--border);
+      border-color: rgba(200,150,60,0.22);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,150,60,0.05);
     }
     .nav-logo {
       font-family: var(--font-serif);
-      font-size: 20px; font-weight: 700;
+      font-size: 17px; font-weight: 700;
       color: var(--gold); letter-spacing: 0.04em;
+      padding: 15px 0; white-space: nowrap;
     }
-    .nav-links { display: flex; gap: 40px; align-items: center; }
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+      margin-left: 24px;
+    }
     .nav-links a {
-      font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500;
-      color: var(--muted); text-decoration: none;
-      transition: color 0.2s;
+      font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+      color: var(--cream-dim); text-decoration: none;
+      padding: 8px 14px; border-radius: 100px;
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
     }
-    .nav-links a:hover { color: var(--cream); }
+    .nav-links a:hover { color: var(--cream); background: rgba(240,232,220,0.07); }
     .nav-cta {
-      padding: 10px 24px !important;
-      border: 1px solid rgba(200,150,60,0.35) !important;
-      color: var(--gold) !important;
-      transition: background 0.2s, border-color 0.2s !important;
+      background: var(--gold) !important;
+      color: var(--black) !important;
+      font-weight: 600 !important;
+      padding: 10px 20px !important;
+      margin: 6px;
+      transition: background 0.2s !important;
     }
-    .nav-cta:hover {
-      background: rgba(200,150,60,0.08) !important;
-      border-color: var(--gold) !important;
-    }
+    .nav-cta:hover { background: var(--gold-light) !important; }
+    .nav-cta:active { transform: scale(0.97); }
 
-    /* HERO — asymmetrisches Split-Layout */
+    /* ─── HERO ───────────────────────────────────────── */
     .hero {
       position: relative;
       min-height: 100dvh;
       display: grid;
-      grid-template-columns: 5fr 4fr;
+      grid-template-columns: 55fr 45fr;
       overflow: hidden;
     }
+    .hero-ambient {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 65% 75% at 78% 12%, rgba(200,150,60,0.08) 0%, transparent 55%),
+        radial-gradient(ellipse 45% 55% at 12% 88%, rgba(139,26,26,0.07) 0%, transparent 52%);
+    }
     .hero-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 140px 80px 100px 60px;
       position: relative; z-index: 1;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 140px 80px 110px 64px;
     }
     .hero-right {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      position: relative; z-index: 1;
       border-left: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       overflow: hidden;
     }
     .hero-right::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 80% at 50% 40%, rgba(200,150,60,0.05) 0%, transparent 70%);
+      background: radial-gradient(ellipse 90% 70% at 50% 40%, rgba(200,150,60,0.04) 0%, transparent 65%);
+    }
+    .hero-right-content {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
     }
     .hero-decor-year {
       font-family: var(--font-serif);
-      font-size: clamp(100px, 15vw, 210px);
-      font-weight: 700;
-      font-style: italic;
-      color: rgba(200,150,60,0.07);
-      letter-spacing: -0.04em;
-      line-height: 1;
+      font-size: clamp(88px, 12vw, 176px);
+      font-weight: 700; font-style: italic;
+      color: rgba(200,150,60,0.08);
+      letter-spacing: -0.05em; line-height: 1;
       user-select: none;
-      position: relative; z-index: 1;
     }
-    .hero-decor-sub {
-      position: absolute;
-      bottom: 52px;
-      font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--gold); opacity: 0.5;
-      white-space: nowrap;
+    .hero-decor-line {
+      width: 1px; height: 56px;
+      background: linear-gradient(to bottom, rgba(200,150,60,0.25), transparent);
+      margin: 22px 0;
     }
+    .hero-decor-info {
+      display: flex; flex-direction: column; align-items: center; gap: 7px;
+    }
+    .hero-decor-info span {
+      font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+      color: rgba(200,150,60,0.45); white-space: nowrap;
+    }
+
+    /* Staggered entrance animations */
     .hero-eyebrow {
       display: flex; align-items: center; gap: 14px;
       font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 32px;
+      color: var(--gold); margin-bottom: 30px;
+      animation: hero-up 0.9s var(--ease) 80ms both;
     }
     .hero-eyebrow::before {
       content: '';
-      display: block; width: 32px; height: 1px;
-      background: var(--gold); opacity: 0.5; flex-shrink: 0;
+      width: 28px; height: 1px;
+      background: rgba(200,150,60,0.5); flex-shrink: 0;
     }
     .hero-headline {
       font-family: var(--font-serif);
-      font-size: clamp(52px, 6.5vw, 102px);
-      font-weight: 700; line-height: 0.92;
-      letter-spacing: -0.025em;
-      color: var(--cream);
+      font-size: clamp(58px, 7.8vw, 118px);
+      font-weight: 700; line-height: 0.9;
+      letter-spacing: -0.03em; color: var(--cream);
       margin-bottom: 36px;
+      animation: hero-up 0.9s var(--ease) 180ms both;
     }
     .hero-headline em { font-style: italic; color: var(--gold); }
     .hero-sub {
       font-size: clamp(15px, 1.4vw, 17px);
-      color: var(--muted); line-height: 1.8;
-      max-width: 400px; font-weight: 300;
+      color: var(--cream-dim); line-height: 1.8;
+      max-width: 380px; font-weight: 300;
       margin-bottom: 52px;
+      animation: hero-up 0.9s var(--ease) 280ms both;
     }
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-actions {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      animation: hero-up 0.9s var(--ease) 380ms both;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 44px; left: 64px;
+      display: flex; align-items: center; gap: 12px;
+      animation: hero-fade 1.2s var(--ease) 680ms both;
+    }
+    .hero-scroll span {
+      font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--cream-faint);
+    }
+    .scroll-line {
+      width: 40px; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200,150,60,0.45));
+      animation: scroll-pulse 3s ease-in-out infinite;
+    }
 
+    @keyframes hero-up {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes hero-fade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes scroll-pulse {
+      0%, 100% { transform-origin: left; transform: scaleX(0.35); opacity: 0.3; }
+      50%       { transform-origin: left; transform: scaleX(1);    opacity: 1; }
+    }
+
+    /* ─── BUTTONS ────────────────────────────────────── */
     .btn-primary {
       display: inline-block; padding: 14px 36px;
       background: var(--gold); color: var(--black);
@@ -152,104 +229,125 @@
       text-transform: uppercase; text-decoration: none;
       transition: background 0.2s, transform 0.15s;
     }
-    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
-    .btn-primary:active { transform: translateY(1px); }
+    .btn-primary:hover { background: var(--gold-light); }
+    .btn-primary:active { transform: translateY(1px) scale(0.99); }
     .btn-ghost {
       display: inline-block; padding: 14px 36px;
       border: 1px solid var(--border);
-      color: rgba(240,232,220,0.6);
+      color: var(--cream-dim);
       font-family: var(--font-sans);
-      font-size: 12px; font-weight: 400;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      text-decoration: none;
+      font-size: 12px; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
       transition: border-color 0.2s, color 0.2s, transform 0.15s;
     }
-    .btn-ghost:hover { border-color: rgba(200,150,60,0.4); color: var(--gold); transform: translateY(-1px); }
+    .btn-ghost:hover { border-color: var(--border-hover); color: var(--gold); }
     .btn-ghost:active { transform: translateY(1px); }
 
-    .hero-scroll-indicator {
-      position: absolute;
-      bottom: 44px; left: 60px;
-      display: flex; align-items: center; gap: 12px;
-      opacity: 0.22;
+    /* ─── STATS BAR ──────────────────────────────────── */
+    .stats-bar {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
-    .hero-scroll-indicator span { font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; }
-    .scroll-line {
-      width: 44px; height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold));
-      animation: scroll-pulse 2.5s ease-in-out infinite;
+    .stats-bar-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr 1px 1fr;
+      padding: 0 60px;
     }
-    @keyframes scroll-pulse {
-      0%,100% { opacity: 0.3; transform: scaleX(0.5); transform-origin: left; }
-      50%      { opacity: 1;   transform: scaleX(1);   transform-origin: left; }
+    .stat-block {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 32px 20px; gap: 7px;
     }
+    .stat-block-num {
+      font-family: var(--font-serif);
+      font-size: 34px; font-weight: 700; color: var(--gold); line-height: 1;
+    }
+    .stat-block-label {
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--cream-dim);
+    }
+    .stat-sep { background: var(--border); }
 
-    /* SECTIONS */
-    .section { padding: 112px 60px; }
+    /* ─── SECTIONS ───────────────────────────────────── */
+    .section { padding: 120px 60px; }
     .section-dark { background: var(--surface); }
     .container { max-width: 1080px; margin: 0 auto; }
 
     .section-label {
+      display: block;
       font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 22px; display: block;
+      color: var(--gold); margin-bottom: 20px;
     }
     .section-headline {
       font-family: var(--font-serif);
-      font-size: clamp(34px, 4.5vw, 60px);
-      font-weight: 700; line-height: 1.08;
-      color: var(--cream); letter-spacing: -0.02em;
+      font-size: clamp(32px, 4.2vw, 58px);
+      font-weight: 700; line-height: 1.06;
+      color: var(--cream); letter-spacing: -0.025em;
     }
     .section-text {
-      color: var(--muted); font-size: 16px;
+      color: var(--cream-dim); font-size: 16px;
       line-height: 1.85; font-weight: 300;
       margin-top: 20px;
     }
 
-    /* STORIA */
+    /* ─── STORIA ─────────────────────────────────────── */
     .storia-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 100px; align-items: center;
+      grid-template-columns: 5fr 4fr;
+      gap: 100px; align-items: start;
     }
     .storia-left { position: relative; }
     .storia-year-bg {
       font-family: var(--font-serif);
-      font-size: clamp(100px, 14vw, 180px);
+      font-size: clamp(100px, 15vw, 200px);
       font-weight: 700; line-height: 1;
-      color: rgba(200,150,60,0.06);
-      letter-spacing: -0.04em;
-      position: absolute; top: -40px; left: -20px;
+      color: rgba(200,150,60,0.055);
+      letter-spacing: -0.05em;
+      position: absolute; top: -48px; left: -24px;
       pointer-events: none; user-select: none;
     }
     .storia-quote {
       font-family: var(--font-serif);
       font-size: clamp(18px, 2vw, 23px);
       font-style: italic; line-height: 1.55;
-      color: var(--gold-light); margin-bottom: 28px;
+      color: var(--gold-light);
+      margin-bottom: 28px;
       position: relative; z-index: 1;
     }
-    .storia-text { position: relative; z-index: 1; }
+    .storia-body { position: relative; z-index: 1; }
     .storia-stats {
-      display: flex; gap: 48px; margin-top: 48px;
-      padding-top: 40px; border-top: 1px solid var(--border);
+      display: flex;
+      margin-top: 52px; padding-top: 44px;
+      border-top: 1px solid var(--border);
     }
+    .storia-stat {
+      flex: 1; padding-right: 28px; margin-right: 28px;
+      border-right: 1px solid var(--border);
+    }
+    .storia-stat:last-child { border-right: none; padding-right: 0; margin-right: 0; }
     .stat-num {
       font-family: var(--font-serif);
-      font-size: 40px; font-weight: 700;
-      color: var(--gold); line-height: 1;
+      font-size: 38px; font-weight: 700; color: var(--gold); line-height: 1;
     }
     .stat-label {
-      font-size: 10px; color: var(--muted); margin-top: 6px;
-      letter-spacing: 0.08em; text-transform: uppercase;
+      font-size: 10px; color: var(--cream-dim);
+      margin-top: 8px; letter-spacing: 0.1em; text-transform: uppercase;
     }
+    .storia-right .section-text { margin-top: 24px; }
+    .storia-right .section-text + .section-text { margin-top: 16px; }
 
-    /* MENU — asymmetrisches Bento */
+    /* ─── MENU — Asymmetric Bento ────────────────────── */
     .menu-header { margin-bottom: 56px; }
     .menu-header .section-text { max-width: 480px; }
 
-    .menu-bento-wrap {
-      border: 1px solid var(--border);
-      overflow: hidden;
+    /* Double-Bezel outer shell */
+    .menu-bento-shell {
+      padding: 2px;
+      background: var(--border);
+      box-shadow:
+        0 0 0 1px rgba(200,150,60,0.05),
+        0 32px 80px rgba(0,0,0,0.5);
     }
     .menu-bento {
       display: grid;
@@ -259,10 +357,10 @@
     }
     .menu-block {
       background: var(--black);
-      padding: 44px 40px;
-      transition: background 0.25s;
+      padding: 48px 44px;
+      transition: background 0.3s;
     }
-    .menu-block:hover { background: rgba(200,150,60,0.025); }
+    .menu-block:hover { background: rgba(200,150,60,0.02); }
     .menu-block-salate {
       grid-column: 2;
       grid-row: 1 / 3;
@@ -271,175 +369,230 @@
       display: block;
       font-family: var(--font-serif);
       font-size: 11px; font-style: italic;
-      color: var(--gold); opacity: 0.65;
-      letter-spacing: 0.08em;
-      margin-bottom: 16px;
+      color: var(--gold); opacity: 0.6;
+      letter-spacing: 0.1em; margin-bottom: 14px;
     }
     .menu-block-title {
       font-family: var(--font-serif);
-      font-size: 26px; font-weight: 700;
-      color: var(--cream); margin-bottom: 10px;
+      font-size: 24px; font-weight: 700;
+      color: var(--cream); letter-spacing: -0.01em;
+      margin-bottom: 10px;
     }
     .menu-block-desc {
-      font-size: 13px; color: var(--muted);
+      font-size: 13px; color: var(--cream-dim);
       line-height: 1.75; font-weight: 300;
       margin-bottom: 28px;
     }
-    .menu-items { display: flex; flex-direction: column; gap: 0; }
+    .menu-items { display: flex; flex-direction: column; }
     .menu-item {
       display: flex; justify-content: space-between; align-items: baseline;
-      font-size: 14px; padding: 11px 0;
-      border-bottom: 1px solid rgba(200,150,60,0.07);
+      font-size: 14px; padding: 12px 0;
+      border-bottom: 1px solid rgba(200,150,60,0.06);
     }
     .menu-item:last-child { border-bottom: none; }
-    .menu-item-name { color: var(--cream); font-weight: 400; }
-    .menu-item-price { color: var(--gold); font-weight: 600; font-size: 13px; }
-    .menu-items-2col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0 40px;
+    .menu-item-name { color: var(--cream); }
+    .menu-item-price {
+      color: var(--gold); font-weight: 600; font-size: 13px;
+      flex-shrink: 0; margin-left: 16px;
     }
-    .menu-footer-note {
-      text-align: center; margin-top: 24px;
-      font-size: 12px; color: var(--muted); letter-spacing: 0.05em;
+    .menu-items-2col {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px;
+    }
+    .menu-note {
+      text-align: center; margin-top: 28px;
+      font-size: 12px; color: var(--cream-faint); letter-spacing: 0.06em;
     }
 
-    /* RECENSIONI — asymmetrisch */
-    .reviews-intro { margin-bottom: 52px; }
-    .reviews-layout {
+    /* ─── REVIEWS ────────────────────────────────────── */
+    .reviews-header { margin-bottom: 56px; }
+    .reviews-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 20px;
+      grid-template-columns: 3fr 2fr;
+      gap: 2px; background: var(--border);
+      border: 1px solid var(--border);
     }
     .review-feature {
-      padding: 52px 48px;
-      border: 1px solid var(--border);
-      background: rgba(200,150,60,0.02);
+      padding: 64px 60px;
+      background: var(--black);
       position: relative;
     }
-    .review-feature-mark {
+    .review-quotemark {
       font-family: var(--font-serif);
-      font-size: 130px; line-height: 0.7;
-      color: rgba(200,150,60,0.08);
-      font-style: italic;
-      position: absolute; top: 28px; left: 28px;
+      font-size: 160px; line-height: 0.6;
+      color: rgba(200,150,60,0.07); font-style: italic;
+      position: absolute; top: 28px; left: 36px;
       user-select: none; pointer-events: none;
     }
-    .review-feature-text {
-      font-family: var(--font-serif);
-      font-style: italic;
+    .review-text {
+      font-family: var(--font-serif); font-style: italic;
       font-size: clamp(17px, 1.8vw, 22px);
       line-height: 1.65; color: var(--cream);
-      margin-bottom: 32px;
-      position: relative; z-index: 1;
+      margin-bottom: 36px; position: relative; z-index: 1;
     }
     .review-meta { display: flex; align-items: center; gap: 20px; }
-    .review-stars { color: var(--gold); font-size: 12px; letter-spacing: 3px; }
+    .review-stars {
+      color: var(--gold); font-size: 12px; letter-spacing: 4px;
+    }
     .review-author {
       font-size: 11px; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--muted);
+      text-transform: uppercase; color: var(--cream-dim);
     }
-    .reviews-side { display: flex; flex-direction: column; gap: 20px; }
-    .review-card-small {
-      padding: 32px 28px;
-      border: 1px solid var(--border);
-      background: rgba(200,150,60,0.01);
-      flex: 1;
+    .reviews-side {
+      display: flex; flex-direction: column;
+      gap: 2px; background: var(--border);
     }
-    .review-card-small .review-stars { display: block; margin-bottom: 14px; }
-    .review-card-small-text {
-      font-family: var(--font-serif);
-      font-style: italic;
+    .review-small {
+      flex: 1; padding: 36px 32px;
+      background: var(--black);
+    }
+    .review-small .review-stars { display: block; margin-bottom: 14px; }
+    .review-small-text {
+      font-family: var(--font-serif); font-style: italic;
       font-size: 14px; line-height: 1.7; color: var(--cream);
       margin-bottom: 18px;
     }
 
-    /* ÖFFNUNGSZEITEN & ORT */
+    /* ─── ÖFFNUNGSZEITEN & ORT ───────────────────────── */
     .hours-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: start;
+      display: grid;
+      grid-template-columns: 5fr 4fr;
+      gap: 100px; align-items: start;
     }
     .hours-table { width: 100%; border-collapse: collapse; margin-top: 40px; }
     .hours-table tr { border-bottom: 1px solid var(--border); }
     .hours-table tr:last-child { border-bottom: none; }
-    .hours-table td { padding: 15px 0; font-size: 14px; font-weight: 400; }
-    .hours-table td:first-child { color: var(--muted); font-weight: 300; }
+    .hours-table td { padding: 15px 0; font-size: 14px; }
+    .hours-table td:first-child { color: var(--cream-dim); font-weight: 300; }
     .hours-table td:last-child { text-align: right; color: var(--cream); }
-    .closed-day td { opacity: 0.3; }
-    .hours-note { margin-top: 20px; font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
-
-    .location-block { display: flex; flex-direction: column; gap: 28px; margin-top: 40px; }
-    .location-item { display: flex; gap: 20px; align-items: flex-start; }
-    .location-icon-wrap {
-      width: 40px; height: 40px; flex-shrink: 0;
-      border: 1px solid var(--border);
+    .closed-day td { opacity: 0.28; }
+    .hours-note {
+      margin-top: 20px; font-size: 12px;
+      color: var(--cream-faint); letter-spacing: 0.04em;
+    }
+    .location-block { margin-top: 40px; }
+    .location-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 22px 0; border-bottom: 1px solid var(--border);
+    }
+    .location-item:last-child { border-bottom: none; }
+    .location-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      color: var(--gold);
+      color: var(--gold); opacity: 0.8; margin-top: 2px;
     }
     .location-label {
-      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 5px;
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.8; margin-bottom: 5px;
     }
-    .location-value { font-size: 15px; color: var(--cream); line-height: 1.55; font-weight: 300; }
+    .location-value {
+      font-size: 15px; color: var(--cream);
+      line-height: 1.55; font-weight: 300;
+    }
     .location-value a { color: var(--cream); text-decoration: none; transition: color 0.2s; }
     .location-value a:hover { color: var(--gold); }
 
-    /* CTA */
-    .cta-section { padding: 112px 60px; text-align: center; }
-    .cta-section .section-headline { margin: 20px 0 14px; }
-    .cta-section .section-text { margin: 0 auto 48px; max-width: 400px; }
+    /* ─── CTA ────────────────────────────────────────── */
+    .cta-section {
+      padding: 120px 60px;
+      background: var(--surface-2);
+      border-top: 1px solid var(--border);
+    }
+    .cta-inner { max-width: 560px; }
+    .cta-section .section-headline { margin: 16px 0 12px; }
+    .cta-section .section-text { margin-bottom: 0; }
+    .cta-action {
+      display: flex; align-items: center; gap: 24px;
+      margin-top: 44px; flex-wrap: wrap;
+    }
+    .cta-hint {
+      font-size: 12px; color: var(--cream-faint); letter-spacing: 0.05em;
+    }
 
-    /* FOOTER */
+    /* ─── FOOTER ─────────────────────────────────────── */
     footer {
       border-top: 1px solid var(--border);
-      padding: 40px 60px;
-      display: flex; align-items: center;
-      justify-content: space-between;
-      background: var(--black);
+      background: var(--black-deep);
+      padding: 36px 60px;
+    }
+    .footer-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px;
     }
     .footer-logo {
       font-family: var(--font-serif);
-      font-size: 17px; font-weight: 700;
-      color: var(--gold); letter-spacing: 0.04em;
+      font-size: 16px; font-weight: 700;
+      color: var(--gold); letter-spacing: 0.05em;
     }
-    .footer-copy { font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
-
-    /* REVEAL */
-    .reveal-el {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
-                  transform 0.9s cubic-bezier(0.16,1,0.3,1);
+    .footer-copy { font-size: 12px; color: var(--cream-faint); letter-spacing: 0.04em; }
+    .footer-phone {
+      font-size: 13px; color: var(--cream-dim);
+      text-decoration: none; letter-spacing: 0.04em;
+      transition: color 0.2s;
     }
-    .reveal-el.visible { opacity: 1; transform: translateY(0); }
+    .footer-phone:hover { color: var(--gold); }
 
-    /* RESPONSIVE */
-    @media (max-width: 960px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
-      .hero-left { padding: 120px 40px 90px; }
-      .storia-grid { grid-template-columns: 1fr; gap: 56px; }
-      .menu-bento { grid-template-columns: 1fr; }
+    /* ─── REVEAL ANIMATIONS ──────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 100ms; }
+    .reveal-d2 { transition-delay: 200ms; }
+    .reveal-d3 { transition-delay: 300ms; }
+
+    /* ─── REDUCED MOTION ─────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .storia-grid  { grid-template-columns: 1fr; gap: 60px; }
+      .hours-grid   { grid-template-columns: 1fr; gap: 64px; }
+    }
+    @media (max-width: 900px) {
+      .hero              { grid-template-columns: 1fr; }
+      .hero-right        { display: none; }
+      .hero-left         { padding: 120px 40px 96px; }
+      .menu-bento        { grid-template-columns: 1fr; }
       .menu-block-salate { grid-column: 1; grid-row: auto; }
-      .menu-items-2col { grid-template-columns: 1fr; }
-      .reviews-layout { grid-template-columns: 1fr; }
-      .hours-grid { grid-template-columns: 1fr; gap: 56px; }
+      .menu-items-2col   { grid-template-columns: 1fr; }
+      .reviews-grid      { grid-template-columns: 1fr; }
+      .stats-bar-inner   { grid-template-columns: 1fr; padding: 0 40px; }
+      .stat-sep          { width: 100%; height: 1px; }
+      .cta-section       { padding: 80px 40px; }
     }
     @media (max-width: 768px) {
-      nav { padding: 20px 24px; }
-      nav.scrolled { padding: 14px 24px; }
-      .nav-links { display: none; }
+      nav { top: 12px; padding: 0 4px 0 16px; }
+      .nav-logo { font-size: 15px; padding: 13px 0; }
+      .nav-links a:not(.nav-cta) { display: none; }
       .section { padding: 72px 24px; }
+      .stats-bar-inner { padding: 0 24px; }
       .cta-section { padding: 72px 24px; }
-      footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
+      footer { padding: 28px 24px; }
+      .footer-inner { flex-direction: column; text-align: center; gap: 12px; }
       .hero-left { padding: 120px 24px 80px; }
-      .hero-scroll-indicator { left: 24px; }
+      .hero-scroll { left: 24px; }
+      .storia-stats { flex-wrap: wrap; gap: 24px; }
+      .storia-stat { border-right: none; padding-right: 0; margin-right: 0; }
+      .review-feature { padding: 40px 28px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav id="nav">
+  <!-- Grain Overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- NAV — Floating Pill -->
+  <nav id="nav" role="navigation" aria-label="Hauptnavigation">
     <div class="nav-logo">Pizzeria Nobile</div>
     <div class="nav-links">
       <a href="#storia">Geschichte</a>
@@ -450,7 +603,9 @@
   </nav>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" aria-label="Willkommen bei Pizzeria Nobile">
+    <div class="hero-ambient" aria-hidden="true"></div>
+
     <div class="hero-left">
       <div class="hero-eyebrow">Seit 1988 · Altlußheim</div>
       <h1 class="hero-headline">
@@ -463,47 +618,77 @@
         <a href="#menu" class="btn-primary">Speisekarte ansehen</a>
         <a href="#kontakt" class="btn-ghost">Tisch reservieren</a>
       </div>
-      <div class="hero-scroll-indicator">
+      <div class="hero-scroll" aria-hidden="true">
         <span>Scrollen</span>
         <div class="scroll-line"></div>
       </div>
     </div>
-    <div class="hero-right">
-      <div class="hero-decor-year">1988</div>
-      <div class="hero-decor-sub">Dal 1988 · Altlußheim · Italia</div>
+
+    <div class="hero-right" aria-hidden="true">
+      <div class="hero-right-content">
+        <div class="hero-decor-year">1988</div>
+        <div class="hero-decor-line"></div>
+        <div class="hero-decor-info">
+          <span>Hauptstraße 57</span>
+          <span>68804 Altlußheim</span>
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar reveal" role="region" aria-label="Auf einen Blick">
+    <div class="stats-bar-inner">
+      <div class="stat-block">
+        <div class="stat-block-num">35+</div>
+        <div class="stat-block-label">Jahre Erfahrung</div>
+      </div>
+      <div class="stat-sep" aria-hidden="true"></div>
+      <div class="stat-block">
+        <div class="stat-block-num">4.5 ★</div>
+        <div class="stat-block-label">Google Bewertung</div>
+      </div>
+      <div class="stat-sep" aria-hidden="true"></div>
+      <div class="stat-block">
+        <div class="stat-block-num">91</div>
+        <div class="stat-block-label">Begeisterte Gäste</div>
+      </div>
+    </div>
+  </div>
 
   <!-- STORIA -->
   <section class="section section-dark" id="storia">
     <div class="container">
       <div class="storia-grid">
-        <div class="storia-left reveal-el">
-          <div class="storia-year-bg">1988</div>
+
+        <div class="storia-left reveal">
+          <div class="storia-year-bg" aria-hidden="true">1988</div>
           <span class="section-label">Unsere Geschichte</span>
           <p class="storia-quote">"Das Geheimnis ist einfach: frische Zutaten, viel Liebe und Gäste, die wie Familie behandelt werden."</p>
-          <p class="section-text storia-text">Was 1988 als kleines Lokal in Altlußheim begann, ist heute ein fester Teil der Region. Generationsübergreifend, familiär und immer mit demselben Anspruch: echte italienische Küche ohne Kompromisse.</p>
+          <p class="section-text storia-body">Was 1988 als kleines Lokal in Altlußheim begann, ist heute ein fester Teil der Region. Generationsübergreifend, familiär und immer mit demselben Anspruch: echte italienische Küche ohne Kompromisse.</p>
           <div class="storia-stats">
-            <div>
+            <div class="storia-stat">
               <div class="stat-num">35+</div>
-              <div class="stat-label">Jahre</div>
+              <div class="stat-label">Jahre Küche</div>
             </div>
-            <div>
+            <div class="storia-stat">
               <div class="stat-num">4.5</div>
               <div class="stat-label">Google Sterne</div>
             </div>
-            <div>
+            <div class="storia-stat">
               <div class="stat-num">91</div>
               <div class="stat-label">Bewertungen</div>
             </div>
           </div>
         </div>
-        <div class="reveal-el" style="transition-delay: 150ms;">
+
+        <div class="storia-right reveal reveal-d1">
           <span class="section-label">Was uns auszeichnet</span>
           <h2 class="section-headline">Tradition trifft<br>Leidenschaft.</h2>
           <p class="section-text">Wir kochen nicht für die Masse. Jedes Gericht wird mit denselben Zutaten zubereitet, die wir selbst auf den Tisch bringen würden. Kein Tiefkühl, kein Kompromiss.</p>
-          <p class="section-text" style="margin-top: 16px;">Ob knusprige Pizza aus dem Steinofen, hausgemachte Pasta oder klassische Schnitzel — bei uns schmeckt man, dass jemand mit Herzblut dabei ist.</p>
+          <p class="section-text">Ob knusprige Pizza aus dem Steinofen, hausgemachte Pasta oder klassische Schnitzel — bei uns schmeckt man, dass jemand mit Herzblut dabei ist.</p>
         </div>
+
       </div>
     </div>
   </section>
@@ -511,101 +696,145 @@
   <!-- MENU -->
   <section class="section" id="menu">
     <div class="container">
-      <div class="menu-header reveal-el">
+
+      <div class="menu-header reveal">
         <span class="section-label">Speisekarte</span>
         <h2 class="section-headline">Aus unserer Küche.</h2>
         <p class="section-text">Jeden Tag frisch zubereitet. Unsere Speisekarte wechselt saisonal — sprechen Sie uns gerne auf Tagesempfehlungen an.</p>
       </div>
-      <div class="menu-bento-wrap">
+
+      <div class="menu-bento-shell">
         <div class="menu-bento">
 
-          <!-- Pizza — groß, links, Zeile 1 -->
-          <div class="menu-block reveal-el">
+          <!-- I — Pizza (links, Zeile 1) -->
+          <div class="menu-block reveal">
             <span class="menu-block-num">I — Pizza</span>
             <div class="menu-block-title">Aus dem Steinofen.</div>
-            <div class="menu-block-desc">Dünn, knusprig, authentisch. Unsere Pizzen sind das Herzstück des Hauses — nach original italienischen Rezepten gebacken.</div>
+            <div class="menu-block-desc">Dünn, knusprig, authentisch. Nach original italienischen Rezepten — das Herzstück des Hauses.</div>
             <div class="menu-items">
-              <div class="menu-item"><span class="menu-item-name">Margherita</span><span class="menu-item-price">ab 8,90 €</span></div>
-              <div class="menu-item"><span class="menu-item-name">Quattro Stagioni</span><span class="menu-item-price">ab 11,90 €</span></div>
-              <div class="menu-item"><span class="menu-item-name">Diavola</span><span class="menu-item-price">ab 10,90 €</span></div>
-              <div class="menu-item"><span class="menu-item-name">Prosciutto</span><span class="menu-item-price">ab 11,50 €</span></div>
+              <div class="menu-item">
+                <span class="menu-item-name">Margherita</span>
+                <span class="menu-item-price">ab 8,90 €</span>
+              </div>
+              <div class="menu-item">
+                <span class="menu-item-name">Quattro Stagioni</span>
+                <span class="menu-item-price">ab 11,90 €</span>
+              </div>
+              <div class="menu-item">
+                <span class="menu-item-name">Diavola</span>
+                <span class="menu-item-price">ab 10,90 €</span>
+              </div>
+              <div class="menu-item">
+                <span class="menu-item-name">Prosciutto</span>
+                <span class="menu-item-price">ab 11,50 €</span>
+              </div>
             </div>
           </div>
 
-          <!-- Salate — rechts, überspannt beide Zeilen -->
-          <div class="menu-block menu-block-salate reveal-el" style="transition-delay: 100ms;">
-            <span class="menu-block-num">III — Salate & Vorspeisen</span>
+          <!-- III — Salate (rechts, überspannt beide Zeilen) -->
+          <div class="menu-block menu-block-salate reveal reveal-d1">
+            <span class="menu-block-num">III — Salate &amp; Vorspeisen</span>
             <div class="menu-block-title">Frisch &amp; mediterran.</div>
             <div class="menu-block-desc">Knackige Salate und Antipasti als perfekter Einstieg in den Abend.</div>
             <div class="menu-items">
-              <div class="menu-item"><span class="menu-item-name">Gemischter Salat</span><span class="menu-item-price">ab 6,50 €</span></div>
-              <div class="menu-item"><span class="menu-item-name">Bruschetta</span><span class="menu-item-price">ab 4,90 €</span></div>
-              <div class="menu-item"><span class="menu-item-name">Mozzarella Caprese</span><span class="menu-item-price">ab 7,90 €</span></div>
-              <div class="menu-item"><span class="menu-item-name">Antipasto Misto</span><span class="menu-item-price">ab 9,90 €</span></div>
+              <div class="menu-item">
+                <span class="menu-item-name">Gemischter Salat</span>
+                <span class="menu-item-price">ab 6,50 €</span>
+              </div>
+              <div class="menu-item">
+                <span class="menu-item-name">Bruschetta</span>
+                <span class="menu-item-price">ab 4,90 €</span>
+              </div>
+              <div class="menu-item">
+                <span class="menu-item-name">Mozzarella Caprese</span>
+                <span class="menu-item-price">ab 7,90 €</span>
+              </div>
+              <div class="menu-item">
+                <span class="menu-item-name">Antipasto Misto</span>
+                <span class="menu-item-price">ab 9,90 €</span>
+              </div>
             </div>
           </div>
 
-          <!-- Pasta & Fleisch — links, Zeile 2 -->
-          <div class="menu-block reveal-el" style="transition-delay: 200ms;">
+          <!-- II — Pasta & Fleisch (links, Zeile 2) -->
+          <div class="menu-block reveal reveal-d2">
             <span class="menu-block-num">II — Pasta &amp; Fleisch</span>
             <div class="menu-block-title">Klassiker der Hausküche.</div>
-            <div class="menu-block-desc">Nach überlieferten Rezepten zubereitet — Pasta, Schnitzel und mehr.</div>
+            <div class="menu-block-desc">Nach überlieferten Rezepten — Pasta, Schnitzel und mehr.</div>
             <div class="menu-items menu-items-2col">
-              <div class="menu-item"><span class="menu-item-name">Spaghetti Bolognese</span><span class="menu-item-price">ab 9,50 €</span></div>
-              <div class="menu-item"><span class="menu-item-name">Penne Arrabiata</span><span class="menu-item-price">ab 9,00 €</span></div>
-              <div class="menu-item"><span class="menu-item-name">Schnitzel Wiener Art</span><span class="menu-item-price">ab 13,90 €</span></div>
-              <div class="menu-item"><span class="menu-item-name">Zigeunerschnitzel</span><span class="menu-item-price">ab 14,50 €</span></div>
+              <div class="menu-item">
+                <span class="menu-item-name">Spaghetti Bolognese</span>
+                <span class="menu-item-price">ab 9,50 €</span>
+              </div>
+              <div class="menu-item">
+                <span class="menu-item-name">Penne Arrabiata</span>
+                <span class="menu-item-price">ab 9,00 €</span>
+              </div>
+              <div class="menu-item">
+                <span class="menu-item-name">Schnitzel Wiener Art</span>
+                <span class="menu-item-price">ab 13,90 €</span>
+              </div>
+              <div class="menu-item">
+                <span class="menu-item-name">Zigeunerschnitzel</span>
+                <span class="menu-item-price">ab 14,50 €</span>
+              </div>
             </div>
           </div>
 
         </div>
       </div>
-      <p class="menu-footer-note">
+
+      <p class="menu-note">
         Dies ist ein Auszug. Für die vollständige Speisekarte kommen Sie vorbei oder rufen Sie an.
       </p>
+
     </div>
   </section>
 
   <!-- RECENSIONI -->
   <section class="section section-dark">
     <div class="container">
-      <div class="reviews-intro reveal-el">
+
+      <div class="reviews-header reveal">
         <span class="section-label">Was unsere Gäste sagen</span>
         <h2 class="section-headline">4.5 Sterne auf Google.</h2>
       </div>
-      <div class="reviews-layout">
-        <div class="review-feature reveal-el">
-          <div class="review-feature-mark">"</div>
-          <p class="review-feature-text">Wir kommen schon seit 1988 hierher und finden, da gibt es die besten Pizzen weit und breit. Das Ambiente wie vor 30 Jahren, sehr nette Bewirtung.</p>
+
+      <div class="reviews-grid">
+        <div class="review-feature reveal">
+          <div class="review-quotemark" aria-hidden="true">"</div>
+          <p class="review-text">Wir kommen schon seit 1988 hierher und finden, da gibt es die besten Pizzen weit und breit. Das Ambiente wie vor 30 Jahren, sehr nette Bewirtung.</p>
           <div class="review-meta">
-            <span class="review-stars">★★★★★</span>
+            <span class="review-stars" aria-label="5 von 5 Sternen">★★★★★</span>
             <span class="review-author">Stammgast seit 1988</span>
           </div>
         </div>
         <div class="reviews-side">
-          <div class="review-card-small reveal-el" style="transition-delay: 100ms;">
-            <span class="review-stars">★★★★★</span>
-            <p class="review-card-small-text">"Kann ich nur empfehlen, haben sehr gut gegessen. Sehr nette Bewirtung."</p>
+          <div class="review-small reveal reveal-d1">
+            <span class="review-stars" aria-label="5 von 5 Sternen">★★★★★</span>
+            <p class="review-small-text">"Kann ich nur empfehlen, haben sehr gut gegessen. Sehr nette Bewirtung."</p>
             <span class="review-author">Achim M.</span>
           </div>
-          <div class="review-card-small reveal-el" style="transition-delay: 200ms;">
-            <span class="review-stars">★★★★★</span>
-            <p class="review-card-small-text">"Beste Margherita Pizza, die ich seit langem gegessen habe. Ganz bald wieder!"</p>
+          <div class="review-small reveal reveal-d2">
+            <span class="review-stars" aria-label="5 von 5 Sternen">★★★★★</span>
+            <p class="review-small-text">"Beste Margherita Pizza, die ich seit langem gegessen habe. Ganz bald wieder!"</p>
             <span class="review-author">Annika</span>
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- ZEITEN & ORT -->
+  <!-- ÖFFNUNGSZEITEN & ORT -->
   <section class="section" id="zeiten">
     <div class="container">
       <div class="hours-grid">
-        <div class="reveal-el">
+
+        <div class="reveal">
           <span class="section-label">Öffnungszeiten</span>
           <h2 class="section-headline">Wann wir<br>für Sie da sind.</h2>
-          <table class="hours-table">
+          <table class="hours-table" aria-label="Öffnungszeiten Pizzeria Nobile">
             <tr class="closed-day"><td>Montag</td><td>Ruhetag</td></tr>
             <tr><td>Dienstag</td><td>17:00 – 22:00</td></tr>
             <tr><td>Mittwoch</td><td>17:00 – 22:00</td></tr>
@@ -616,13 +845,15 @@
           </table>
           <p class="hours-note">Öffnungszeiten können an Feiertagen abweichen.</p>
         </div>
-        <div class="reveal-el" id="kontakt" style="transition-delay: 150ms;">
+
+        <div class="reveal reveal-d1" id="kontakt">
           <span class="section-label">So finden Sie uns</span>
           <h2 class="section-headline">Kommen Sie<br>vorbei.</h2>
           <div class="location-block">
+
             <div class="location-item">
-              <div class="location-icon-wrap">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <div class="location-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                   <circle cx="12" cy="10" r="3"/>
                 </svg>
@@ -632,20 +863,24 @@
                 <div class="location-value">Hauptstraße 57<br>68804 Altlußheim</div>
               </div>
             </div>
+
             <div class="location-item">
-              <div class="location-icon-wrap">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <div class="location-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                 </svg>
               </div>
               <div>
                 <div class="location-label">Telefon</div>
-                <div class="location-value"><a href="tel:+49620532857">06205 32857</a></div>
+                <div class="location-value">
+                  <a href="tel:+49620532857">06205 32857</a>
+                </div>
               </div>
             </div>
+
             <div class="location-item">
-              <div class="location-icon-wrap">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <div class="location-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M3 11l19-9-9 19-2-8-8-2z"/>
                 </svg>
               </div>
@@ -654,39 +889,56 @@
                 <div class="location-value">Rufen Sie uns an — wir freuen uns auf Sie.</div>
               </div>
             </div>
+
           </div>
         </div>
+
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="cta-section section-dark reveal-el">
-    <span class="section-label">Bereit für den Abend?</span>
-    <h2 class="section-headline">Reservieren Sie<br>Ihren Tisch.</h2>
-    <p class="section-text">Kein Formular, kein Aufwand. Einfach anrufen und wir kümmern uns um den Rest.</p>
-    <a href="tel:+49620532857" class="btn-primary" style="display:inline-block;">06205 32857 anrufen</a>
+  <section class="cta-section reveal">
+    <div class="container">
+      <div class="cta-inner">
+        <span class="section-label">Bereit für den Abend?</span>
+        <h2 class="section-headline">Reservieren Sie<br>Ihren Tisch.</h2>
+        <p class="section-text">Kein Formular, kein Aufwand. Einfach anrufen und wir kümmern uns um den Rest.</p>
+        <div class="cta-action">
+          <a href="tel:+49620532857" class="btn-primary">06205 32857 anrufen</a>
+          <span class="cta-hint">Montag Ruhetag</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">Pizzeria Nobile</div>
-    <div class="footer-copy">© 2025 Pizzeria Nobile · Hauptstraße 57 · 68804 Altlußheim</div>
+    <div class="footer-inner">
+      <div class="footer-logo">Pizzeria Nobile</div>
+      <div class="footer-copy">© 2025 · Hauptstraße 57 · 68804 Altlußheim</div>
+      <a href="tel:+49620532857" class="footer-phone">06205 32857</a>
+    </div>
   </footer>
 
   <script>
+    // Floating pill nav
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
+      nav.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
 
-    const els = document.querySelectorAll('.reveal-el');
-    const obs = new IntersectionObserver((entries) => {
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
       });
-    }, { threshold: 0.08 });
-    els.forEach(el => obs.observe(el));
+    }, { threshold: 0.07 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
+
 </body>
 </html>
