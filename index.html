@@ -22,7 +22,7 @@
       --gold-light:    #DBA84E;
       --cream:         #F0E8DC;
       --cream-dim:     rgba(240,232,220,0.52);
-      --cream-faint:   rgba(240,232,220,0.24);
+      --cream-faint:   rgba(240,232,220,0.42);
       --border:        rgba(200,150,60,0.13);
       --border-hover:  rgba(200,150,60,0.30);
       --font-serif:    'Playfair Display', Georgia, serif;
@@ -96,8 +96,11 @@
       background: var(--gold) !important;
       color: var(--black) !important;
       font-weight: 600 !important;
-      padding: 10px 20px !important;
+      padding: 13px 20px !important;
       margin: 6px;
+      min-height: 44px;
+      display: inline-flex !important;
+      align-items: center;
       transition: background 0.2s !important;
     }
     .nav-cta:hover { background: var(--gold-light) !important; }
@@ -165,7 +168,7 @@
       display: flex; align-items: center; gap: 14px;
       font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;
       color: var(--gold); margin-bottom: 30px;
-      animation: hero-up 0.9s var(--ease) 80ms both;
+      animation: hero-up 0.9s var(--ease) 0ms both;
     }
     .hero-eyebrow::before {
       content: '';
@@ -178,7 +181,7 @@
       font-weight: 700; line-height: 0.9;
       letter-spacing: -0.03em; color: var(--cream);
       margin-bottom: 36px;
-      animation: hero-up 0.9s var(--ease) 180ms both;
+      animation: hero-up 0.9s var(--ease) 80ms both;
     }
     .hero-headline em { font-style: italic; color: var(--gold); }
     .hero-sub {
@@ -186,11 +189,11 @@
       color: var(--cream-dim); line-height: 1.8;
       max-width: 380px; font-weight: 300;
       margin-bottom: 52px;
-      animation: hero-up 0.9s var(--ease) 280ms both;
+      animation: hero-up 0.9s var(--ease) 160ms both;
     }
     .hero-actions {
       display: flex; gap: 12px; flex-wrap: wrap;
-      animation: hero-up 0.9s var(--ease) 380ms both;
+      animation: hero-up 0.9s var(--ease) 240ms both;
     }
     .hero-scroll {
       position: absolute; bottom: 44px; left: 64px;
@@ -243,31 +246,21 @@
     .btn-ghost:hover { border-color: var(--border-hover); color: var(--gold); }
     .btn-ghost:active { transform: translateY(1px); }
 
-    /* ─── STATS BAR ──────────────────────────────────── */
-    .stats-bar {
+    /* ─── INFO STRIP ─────────────────────────────────── */
+    .info-strip {
       background: var(--surface);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
+      padding: 18px 60px;
     }
-    .stats-bar-inner {
+    .info-strip-inner {
       max-width: 1080px; margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1px 1fr 1px 1fr;
-      padding: 0 60px;
-    }
-    .stat-block {
-      display: flex; flex-direction: column; align-items: center;
-      padding: 32px 20px; gap: 7px;
-    }
-    .stat-block-num {
-      font-family: var(--font-serif);
-      font-size: 34px; font-weight: 700; color: var(--gold); line-height: 1;
-    }
-    .stat-block-label {
-      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      display: flex; flex-wrap: wrap; justify-content: center;
+      align-items: center; gap: 0 20px;
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
       color: var(--cream-dim);
     }
-    .stat-sep { background: var(--border); }
+    .strip-dot { color: var(--gold); opacity: 0.45; }
 
     /* ─── SECTIONS ───────────────────────────────────── */
     .section { padding: 120px 60px; }
@@ -329,6 +322,7 @@
     .stat-num {
       font-family: var(--font-serif);
       font-size: 38px; font-weight: 700; color: var(--gold); line-height: 1;
+      font-variant-numeric: tabular-nums;
     }
     .stat-label {
       font-size: 10px; color: var(--cream-dim);
@@ -529,6 +523,10 @@
       font-size: 13px; color: var(--cream-dim);
       text-decoration: none; letter-spacing: 0.04em;
       transition: color 0.2s;
+      padding: 10px 4px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
     }
     .footer-phone:hover { color: var(--gold); }
 
@@ -541,6 +539,16 @@
     .reveal-d1 { transition-delay: 100ms; }
     .reveal-d2 { transition-delay: 200ms; }
     .reveal-d3 { transition-delay: 300ms; }
+
+    /* ─── FOCUS RINGS ───────────────────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+    .btn-primary:focus-visible,
+    .btn-ghost:focus-visible {
+      outline-offset: 4px;
+    }
 
     /* ─── REDUCED MOTION ─────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
@@ -565,8 +573,7 @@
       .menu-block-salate { grid-column: 1; grid-row: auto; }
       .menu-items-2col   { grid-template-columns: 1fr; }
       .reviews-grid      { grid-template-columns: 1fr; }
-      .stats-bar-inner   { grid-template-columns: 1fr; padding: 0 40px; }
-      .stat-sep          { width: 100%; height: 1px; }
+      .info-strip        { padding: 16px 40px; }
       .cta-section       { padding: 80px 40px; }
     }
     @media (max-width: 768px) {
@@ -574,7 +581,7 @@
       .nav-logo { font-size: 15px; padding: 13px 0; }
       .nav-links a:not(.nav-cta) { display: none; }
       .section { padding: 72px 24px; }
-      .stats-bar-inner { padding: 0 24px; }
+      .info-strip { padding: 14px 24px; }
       .cta-section { padding: 72px 24px; }
       footer { padding: 28px 24px; }
       .footer-inner { flex-direction: column; text-align: center; gap: 12px; }
@@ -636,23 +643,16 @@
     </div>
   </section>
 
-  <!-- STATS BAR -->
-  <div class="stats-bar reveal" role="region" aria-label="Auf einen Blick">
-    <div class="stats-bar-inner">
-      <div class="stat-block">
-        <div class="stat-block-num">35+</div>
-        <div class="stat-block-label">Jahre Erfahrung</div>
-      </div>
-      <div class="stat-sep" aria-hidden="true"></div>
-      <div class="stat-block">
-        <div class="stat-block-num">4.5 ★</div>
-        <div class="stat-block-label">Google Bewertung</div>
-      </div>
-      <div class="stat-sep" aria-hidden="true"></div>
-      <div class="stat-block">
-        <div class="stat-block-num">91</div>
-        <div class="stat-block-label">Begeisterte Gäste</div>
-      </div>
+  <!-- INFO STRIP -->
+  <div class="info-strip">
+    <div class="info-strip-inner">
+      <span>Seit 1988</span>
+      <span class="strip-dot" aria-hidden="true">·</span>
+      <span>Hauptstraße 57, Altlußheim</span>
+      <span class="strip-dot" aria-hidden="true">·</span>
+      <span>4,5 Sterne auf Google</span>
+      <span class="strip-dot" aria-hidden="true">·</span>
+      <span>Di – So geöffnet</span>
     </div>
   </div>
 
